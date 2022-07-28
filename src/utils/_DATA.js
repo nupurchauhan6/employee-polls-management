@@ -2,7 +2,8 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: '../../images/snow.jpg',
+    password: '12345',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/sarah.jpg' ,
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionOne',
@@ -14,7 +15,8 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: '../../images/tyler.jpg',
+    password: '12345',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/tyler.jpg',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +26,8 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: '../../images/leaf.jpg',
+    password: '12345',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/dan.jpg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -41,11 +44,11 @@ let questions = {
     timestamp: 1467166872634,
     optionOne: {
       votes: ['sarahedo'],
-      text: 'have horrible short term memory',
+      text: 'Have Horrible Short Term Memory',
     },
     optionTwo: {
       votes: [],
-      text: 'have horrible long term memory'
+      text: 'Have Horrible Long Term Memory'
     }
   },
   "6ni6ok3ym7mf1p33lnez": {
@@ -54,11 +57,11 @@ let questions = {
     timestamp: 1468479767190,
     optionOne: {
       votes: [],
-      text: 'become a superhero',
+      text: 'Become a Superhero',
     },
     optionTwo: {
       votes: ['johndoe', 'sarahedo'],
-      text: 'become a supervillian'
+      text: 'Become a Supervillian'
     }
   },
   "am8ehyc8byjqgar0jgpub9": {
@@ -67,11 +70,11 @@ let questions = {
     timestamp: 1488579767190,
     optionOne: {
       votes: [],
-      text: 'be telekinetic',
+      text: 'Be Telekinetic',
     },
     optionTwo: {
       votes: ['sarahedo'],
-      text: 'be telepathic'
+      text: 'Be Telepathic'
     }
   },
   "loxhs1bqm25b708cmbf3g": {
@@ -80,11 +83,11 @@ let questions = {
     timestamp: 1482579767190,
     optionOne: {
       votes: [],
-      text: 'be a front-end developer',
+      text: 'Be a Front-end Developer',
     },
     optionTwo: {
       votes: ['sarahedo'],
-      text: 'be a back-end developer'
+      text: 'Be a Back-end Developer'
     }
   },
   "vthrdm985a262al8qx3do": {
@@ -93,11 +96,11 @@ let questions = {
     timestamp: 1489579767190,
     optionOne: {
       votes: ['tylermcginnis'],
-      text: 'find $50 yourself',
+      text: 'Find $50 yourself',
     },
     optionTwo: {
       votes: ['johndoe'],
-      text: 'have your best friend find $500'
+      text: 'Have your best friend find $500'
     }
   },
   "xj352vofupe1dqz9emx13r": {
@@ -106,11 +109,11 @@ let questions = {
     timestamp: 1493579767190,
     optionOne: {
       votes: ['johndoe'],
-      text: 'write JavaScript',
+      text: 'Write JavaScript',
     },
     optionTwo: {
       votes: ['tylermcginnis'],
-      text: 'write Swift'
+      text: 'Write Swift'
     }
   },
 }
@@ -131,7 +134,7 @@ export function _getQuestions () {
   })
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
+export function formatQuestion ({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),

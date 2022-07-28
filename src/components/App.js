@@ -1,10 +1,67 @@
-import './App.css';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleInitialData } from "../actions/shared";
+import LoadingBar from "react-redux-loading-bar";
+import Dashboard from './Dashboard';
+import Nav from './NavBar';
+import { Routes, Route } from "react-router-dom";
+import NewPoll from './NewPoll';
+import ViewPoll from './ViewPoll';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import Home from './Home';
+import Leadership from './Leadership';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    success: {
+      main: '#4caf50'
+    },
+    error: {
+      main: '#d32f2f'
+    },
+    info: {
+      main: '#42a5f5'
+    }
+  },
+});
+
 
 function App() {
+  const loading = useSelector(state => state.loadingBar);
+  const dispatch = useDispatch();
+  const authedUser = useSelector(state => state.authedUser);
+
+  useEffect(() => {
+    dispatch(handleInitialData());
+  }, [dispatch]);
+
   return (
-    <div>
-      <h1> Hello! </h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <LoadingBar />
+      <div className="container">
+        {!authedUser ? <>
+          <Home />
+          {loading === true ? null : (
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          )}
+        </> : <>
+          <Nav />
+          {loading === true ? null : (
+            <Routes>
+              <Route path="/" exact element={<Dashboard />} />
+              <Route path="/question/:id" element={<ViewPoll />} />
+              <Route path="/new" element={<NewPoll />} />
+              <Route path="/leadership" element={<Leadership />} />
+            </Routes>
+          )} </>}
+      </div>
+    </ThemeProvider>
   );
 }
 
