@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-const Leadership = () => {
+const Leaderboard = () => {
 
     const users = useSelector(state => state.users);
 
@@ -71,4 +71,4 @@ const Leadership = () => {
     );
 };
 
-export default Leadership;
+export default Leaderboard;

@@ -10,7 +10,7 @@ import ViewPoll from './ViewPoll';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Home from './Home';
-import Leadership from './Leadership';
+import Leaderboard from './Leaderboard';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -57,7 +57,7 @@ function App() {
               <Route path="/" exact element={<Dashboard />} />
               <Route path="/question/:id" element={<ViewPoll />} />
               <Route path="/new" element={<NewPoll />} />
-              <Route path="/leadership" element={<Leadership />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
             </Routes>
           )} </>}
       </div>
