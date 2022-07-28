@@ -1,20 +1,69 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    Avatar,
+    Box,
+    Grid,
+    Typography
+} from '@mui/material';
+import { setAuthedUser } from "../actions/authedUser";
 
 const Nav = () => {
+
+    const authedUser = useSelector(state => state.authedUser);
+    const user = useSelector(state => state.users[authedUser.id]);
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(setAuthedUser(null));
+    };
+
     return (
-        <nav className="nav">
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/new">Create New Poll</Link>
-                </li>
-                <li>
-                    <Link to="/leaderboard">Leaderboard</Link>
-                </li>
-            </ul>
-        </nav>
+        <div>
+            <Grid container>
+                <Grid item xs={6}>
+                    <nav className="nav">
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/new">Create New Poll</Link>
+                            </li>
+                            <li>
+                                <Link to="/leaderboard">Leaderboard</Link>
+                            </li>
+                            <li>
+                                <span style={{ cursor: 'pointer' }} onClick={handleClick}>Log Out</span>
+                            </li>
+                        </ul>
+                    </nav>
+                </Grid>
+                <Grid item xs={6}>
+                    <Box
+                        sx={{
+                            alignItems: 'center',
+                            display: 'flex',
+                            float: 'right',
+                            marginTop: '5%'
+                        }}
+                    >
+                        <Avatar
+                            src={user.avatarURL}
+                            sx={{ mr: 2 }}
+                        >
+                            {user.name}
+                        </Avatar>
+                        <Typography
+                            color="textPrimary"
+                            variant="body1"
+                        >
+                            {user.name}
+                        </Typography>
+                    </Box>
+                </Grid>
+            </Grid>
+        </div>
     );
 };
 
