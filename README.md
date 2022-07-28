@@ -1,7 +1,5 @@
 # Employee Polls Project
 
-# Employee Polls Project
-
 Step 1: `npm install` to project dependencies.
 
 Step 2: `npm start` to launch the project.
