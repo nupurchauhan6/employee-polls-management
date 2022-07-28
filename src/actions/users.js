@@ -25,9 +25,10 @@ export const updateCreatedQuestion = (userID, questionID) => {
     };
 }
 
-export const updateAnswers = (answers) => {
+export const updateAnswers = (id, answers) => {
     return {
         type: UPDATE_ANSWERS,
+        id,
         answers
     };
 }

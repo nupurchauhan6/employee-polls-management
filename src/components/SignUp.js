@@ -26,6 +26,8 @@ export default function SignUp() {
       name: data.get('firstName') + ' ' + data.get('lastName'),
       password: data.get('password'),
       avatarURL: data.get('avatarURL'),
+      questions: [],
+      answers: {}
     };
     dispatch(addUser(res));
     alert("Account Created Successfully! Please go to Sign In page to login.")

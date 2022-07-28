@@ -4,7 +4,7 @@ import { handleInitialData } from "../actions/shared";
 import LoadingBar from "react-redux-loading-bar";
 import Dashboard from './Dashboard';
 import Nav from './NavBar';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import NewPoll from './NewPoll';
 import ViewPoll from './ViewPoll';
 import SignIn from './SignIn';
@@ -48,6 +48,7 @@ function App() {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}
         </> : <>

@@ -9,6 +9,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { updateQuestion } from '../actions/questions';
+import { updateAnswers } from '../actions/users';
 
 export default function Form(props) {
 
@@ -17,10 +18,11 @@ export default function Form(props) {
     const [question] = useState(props.question);
     const selectedOption = question.optionOne.votes.includes(authedUser.id) ? "optionOne" : question.optionTwo.votes.includes(authedUser.id) ? "optionTwo" : "";
     const [value, setValue] = React.useState(selectedOption);
+    const user = useSelector(state => state.users[authedUser.id]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const tmp = JSON.parse(JSON.stringify(props.question));
+        let tmp = JSON.parse(JSON.stringify(props.question));
         if (value === "optionOne") {
             if (!tmp.optionOne.votes.includes(authedUser.id)) {
                 tmp.optionOne.votes.push(authedUser.id);
@@ -41,6 +43,9 @@ export default function Form(props) {
             }
         }
         dispatch(updateQuestion(tmp.id, tmp.optionOne, tmp.optionTwo));
+        tmp = JSON.parse(JSON.stringify(user));
+        tmp.answers[question.id] = value;
+        dispatch(updateAnswers(authedUser.id, tmp.answers))
     };
 
     const handleRadioChange = (event) => {
