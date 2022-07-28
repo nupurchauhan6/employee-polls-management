@@ -3,6 +3,10 @@ import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import BasicTable from './Table';
 import Form from './Form';
+import Grid from '@mui/material/Grid';
+import PieChart from './Chart';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 
 const ViewPoll = () => {
 
@@ -25,16 +29,27 @@ const ViewPoll = () => {
     return (
         <div>
             {user && question &&
-                <div>
-                    <div style={styles.header}>
+                <div style={styles.header}>
+                    <div>
                         <img style={styles.img} alt={user.name} src={user.avatarURL} />
                         <Typography variant="h5"> {user.name}</Typography>
                         <Typography> {`${'@' + user.id}`}</Typography>
-                        <Form question={question}/>
                     </div>
-                    <div>
-                        <BasicTable question={question} />
-                    </div>
+                    <Divider sx={{ marginTop: 5, marginBottom: 5 }}>
+                        <Chip label="Update your answers or submit one if you have not." />
+                    </Divider>
+                    <Form question={question} />
+                    <Divider sx={{ marginTop: 5, marginBottom: 5 }}>
+                        <Chip label="Current Status of the Poll." />
+                    </Divider>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <BasicTable question={question} />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <PieChart question={question} />
+                        </Grid>
+                    </Grid>
                 </div>
             }
         </div>

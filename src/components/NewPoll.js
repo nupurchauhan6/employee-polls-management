@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -11,6 +10,7 @@ import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { addQuestion } from '../actions/questions';
 import { formatQuestion } from '../utils/_DATA';
+import { updateCreatedQuestion } from '../actions/users';
 
 export default function NewPoll() {
 
@@ -25,13 +25,14 @@ export default function NewPoll() {
             optionOneText: data.get('optionOne'),
             optionTwoText: data.get('optionTwo')
         };
-        dispatch(addQuestion(formatQuestion(res)));
+        const formattedQuestion = formatQuestion(res);
+        dispatch(addQuestion(formattedQuestion));
+        dispatch(updateCreatedQuestion(authedUser.id, formattedQuestion.id));
         alert("New Question is created. Go to home to check your question.");
     };
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
             <Box
                 sx={{
                     marginTop: 8,

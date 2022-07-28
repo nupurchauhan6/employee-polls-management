@@ -25,10 +25,10 @@ const Leadership = () => {
                                 Name
                             </TableCell>
                             <TableCell>
-                                Created
+                                Answered
                             </TableCell>
                             <TableCell>
-                                Answered
+                                Created
                             </TableCell>
                         </TableRow>
                     </TableHead>

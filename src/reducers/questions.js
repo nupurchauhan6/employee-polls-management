@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, ADD_QUESTION } from "../actions/questions";
+import { RECEIVE_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION } from "../actions/questions";
 
 const questions = (state = {}, action) => {
     switch (action.type) {
@@ -11,6 +11,15 @@ const questions = (state = {}, action) => {
             return {
                 ...state,
                 [action.question.id]: action.question,
+            }
+        case UPDATE_QUESTION:
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    optionOne: action.optionOne,
+                    optionTwo: action.optionTwo
+                }
             }
         default:
             return state;

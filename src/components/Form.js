@@ -8,17 +8,43 @@ import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { updateQuestion } from '../actions/questions';
 
 export default function Form(props) {
 
     const dispatch = useDispatch();
     const authedUser = useSelector(state => state.authedUser);
     const [question] = useState(props.question);
+    const selectedOption = question.optionOne.votes.includes(authedUser.id) ? "optionOne" : question.optionTwo.votes.includes(authedUser.id) ? "optionTwo" : "";
+    const [value, setValue] = React.useState(selectedOption);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log(data);
+        const tmp = JSON.parse(JSON.stringify(props.question));
+        if (value === "optionOne") {
+            if (!tmp.optionOne.votes.includes(authedUser.id)) {
+                tmp.optionOne.votes.push(authedUser.id);
+            }
+            if (tmp.optionTwo.votes.includes(authedUser.id)) {
+                const index = tmp.optionTwo.votes.indexOf(authedUser.id);
+                tmp.optionTwo.votes.splice(index, 1);
+            }
+        }
+
+        if (value === "optionTwo") {
+            if (!tmp.optionTwo.votes.includes(authedUser.id)) {
+                tmp.optionTwo.votes.push(authedUser.id);
+            }
+            if (tmp.optionOne.votes.includes(authedUser.id)) {
+                const index = tmp.optionOne.votes.indexOf(authedUser.id);
+                tmp.optionOne.votes.splice(index, 1);
+            }
+        }
+        dispatch(updateQuestion(tmp.id, tmp.optionOne, tmp.optionTwo));
+    };
+
+    const handleRadioChange = (event) => {
+        setValue(event.target.value);
     };
 
     return (
@@ -35,11 +61,11 @@ export default function Form(props) {
                     Would You Rather
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                    {question && question.optionOne && question.optionTwo  &&
-                        <RadioGroup row name="answer">
+                    {question && question.optionOne && question.optionTwo &&
+                        <RadioGroup row name="answer" value={value}
+                            onChange={handleRadioChange}>
                             <FormControlLabel value="optionOne" control={<Radio />} label={question.optionOne.text} />
                             <FormControlLabel value="optionTwo" control={<Radio />} label={question.optionTwo.text} />
-
                         </RadioGroup>
                     }
                     <Button

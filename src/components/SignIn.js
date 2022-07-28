@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -30,8 +29,7 @@ export default function SignIn() {
         if (users && users[id]) {
             if (users[id].password === password) {
                 alert("Logged In!")
-                dispatch(setAuthedUser(users[id]))
-                // navigate("dashboard", { replace: true });
+                dispatch(setAuthedUser({ "id": id }))
             } else {
                 alert("Wrong password!")
             }
@@ -43,7 +41,6 @@ export default function SignIn() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
                 <Box
                     sx={{
                         marginTop: 8,
