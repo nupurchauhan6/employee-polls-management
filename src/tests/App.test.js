@@ -1,18 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../components/App';
-import { BrowserRouter as Router, BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import '@testing-library/jest-dom'
 import SignIn from '../components/SignIn';
 import store from '../store';
 import Home from '../components/Home';
 import { MemoryRouter } from "react-router-dom";
+import Nav from "../components/NavBar";
+import { setAuthedUser } from '../actions/authedUser';
+import { getInitialData } from "../utils/api";
+import { receiveUsers } from "../actions/users";
 
 describe("App", () => {
 
     it('should render the component', () => {
-        let component;
-        component = render(
+        let component = render(
             <Provider store={store}>
                 <BrowserRouter>
                     <App />
@@ -24,8 +27,7 @@ describe("App", () => {
     });
 
     it('check if we have login form', () => {
-        let component;
-        component = render(
+        let component = render(
             <Provider store={store}>
                 <BrowserRouter>
                     <SignIn />
@@ -40,7 +42,7 @@ describe("App", () => {
 
     it('home screen should render links', () => {
         const view = render(
-            <MemoryRouter initialEntries={["/home"]}>
+            <MemoryRouter initialEntries={["/"]}>
                 <Provider store={store}>
                     <Home />
                 </Provider>
@@ -53,5 +55,21 @@ describe("App", () => {
 
         expect(signIn).toBeInTheDocument();
         expect(signUp).toBeInTheDocument();
+    });
+
+    it('an event should be fired on button click', async () => {
+
+        const { users, questions } = await getInitialData();
+        store.dispatch(receiveUsers(users));
+        store.dispatch(setAuthedUser({ id: "johndoe" }));
+        render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Nav />
+                </BrowserRouter>
+            </Provider>
+        );
+        fireEvent.click(screen.getByText("Leaderboard"));
+        expect(window.location.href).toEqual("http://localhost/leaderboard");
     });
 });

@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addQuestion } from '../actions/questions';
 import { formatQuestion } from '../utils/_DATA';
 import { updateCreatedQuestion } from '../actions/users';
+import { useNavigate } from "react-router-dom";
 
 export default function NewPoll() {
 
     const dispatch = useDispatch();
     const authedUser = useSelector(state => state.authedUser);
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -28,7 +30,8 @@ export default function NewPoll() {
         const formattedQuestion = formatQuestion(res);
         dispatch(addQuestion(formattedQuestion));
         dispatch(updateCreatedQuestion(authedUser.id, formattedQuestion.id));
-        alert("New Question is created. Go to home to check your question.");
+        alert("New Question is created.");
+        navigate("/", { replace: true });
     };
 
     return (

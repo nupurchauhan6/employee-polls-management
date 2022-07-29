@@ -14,6 +14,14 @@ import { useSelector } from 'react-redux';
 const Leaderboard = () => {
 
     const users = useSelector(state => state.users);
+    const tmp = Object.keys(users).map(key => {
+        return { ...users[key], "total": Object.entries(users[key].answers).length + users[key].questions.length, "answers": Object.entries(users[key].answers).length, "created": users[key].questions.length }
+
+    });
+    const ordered = tmp.sort((a, b) => {
+        return b.total - a.total;
+    });
+    console.log(ordered);
 
     return (
         <Card sx={{ marginTop: 10 }}>
@@ -33,8 +41,8 @@ const Leaderboard = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users && Object.keys(users).map((id) => {
-                            return <TableRow key={id}>
+                        {ordered && ordered.map((ele) => {
+                            return <TableRow key={ele.id}>
                                 <TableCell>
                                     <Box
                                         sx={{
@@ -43,24 +51,24 @@ const Leaderboard = () => {
                                         }}
                                     >
                                         <Avatar
-                                            src={users[id].avatarURL}
+                                            src={ele.avatarURL}
                                             sx={{ mr: 2 }}
                                         >
-                                            {users[id].name}
+                                            {ele.name}
                                         </Avatar>
                                         <Typography
                                             color="textPrimary"
                                             variant="body1"
                                         >
-                                            {users[id].name}
+                                            {ele.name}
                                         </Typography>
                                     </Box>
                                 </TableCell>
                                 <TableCell>
-                                    {Object.entries(users[id].answers).length}
+                                    {ele.answers}
                                 </TableCell>
                                 <TableCell>
-                                    {users[id].questions.length}
+                                    {ele.created}
                                 </TableCell>
                             </TableRow>
                         })}

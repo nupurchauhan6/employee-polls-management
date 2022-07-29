@@ -4,13 +4,14 @@ import { handleInitialData } from "../actions/shared";
 import LoadingBar from "react-redux-loading-bar";
 import Dashboard from './Dashboard';
 import Nav from './NavBar';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NewPoll from './NewPoll';
 import ViewPoll from './ViewPoll';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
+import NotFound from './NotFound';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -48,7 +49,7 @@ function App() {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           )}
         </> : <>
@@ -57,8 +58,9 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Dashboard />} />
               <Route path="/question/:id" element={<ViewPoll />} />
-              <Route path="/new" element={<NewPoll />} />
+              <Route path="/add" element={<NewPoll />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           )} </>}
       </div>

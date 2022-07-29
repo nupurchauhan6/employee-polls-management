@@ -1,16 +1,37 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Poll from './Poll';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 const Dashboard = () => {
 
     const questions = useSelector(state => state.questions);
-    const renderPolls = Object.keys(questions).map((key) => {
-        return <Poll key={key} question={questions[key]} />
+    const authedUser = useSelector(state => state.authedUser);
+
+    const renderAnsweredPolls = Object.keys(questions).map((key) => {
+        if (questions[key].optionOne.votes.includes(authedUser.id) || questions[key].optionTwo.votes.includes(authedUser.id)) {
+            return <Poll key={key} question={questions[key]} />
+        }
+        return <></>
+    });
+
+    const renderUnansweredPolls = Object.keys(questions).map((key) => {
+        if (!questions[key].optionOne.votes.includes(authedUser.id) && !questions[key].optionTwo.votes.includes(authedUser.id)) {
+            return <Poll key={key} question={questions[key]} />
+        }
+        return <></>
     });
 
     return (
         <div>
-            {renderPolls}
+            <Divider sx={{ marginTop: 5, marginBottom: 5 }}>
+                <Chip label="Unanswered Questions" />
+            </Divider>
+            {renderUnansweredPolls}
+            <Divider sx={{ marginTop: 5, marginBottom: 5 }}>
+                <Chip label="Answered Questions" />
+            </Divider>
+            {renderAnsweredPolls}
         </div>
     )
 }

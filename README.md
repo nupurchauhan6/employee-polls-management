@@ -1,5 +1,15 @@
 # Employee Polls Project
 
+This project is used for employees to create poll and share among other employees. It has different functionalities like to cast your vote, view the leaderboard to see how many polls you have created and answered. You can also check who has voted for which option and what is proportions.
+
+Home: This page contains all the published polls. 
+
+Leaderboard: To see the statistics of your activities.
+
+Create New Poll: Create a new poll.
+
+## Steps To Start The Application:
+
 Step 1: `npm install` to project dependencies.
 
 Step 2: `npm start` to launch the project.

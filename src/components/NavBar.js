@@ -7,15 +7,18 @@ import {
     Typography
 } from '@mui/material';
 import { setAuthedUser } from "../actions/authedUser";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
 
     const authedUser = useSelector(state => state.authedUser);
     const user = useSelector(state => state.users[authedUser.id]);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         dispatch(setAuthedUser(null));
+        navigate("/", { replace: true });
     };
 
     return (
@@ -28,7 +31,7 @@ const Nav = () => {
                                 <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <Link to="/new">Create New Poll</Link>
+                                <Link to="/add">Create New Poll</Link>
                             </li>
                             <li>
                                 <Link to="/leaderboard">Leaderboard</Link>
