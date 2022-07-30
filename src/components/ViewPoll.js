@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import PieChart from './Chart';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const ViewPoll = () => {
 
@@ -24,8 +26,16 @@ const ViewPoll = () => {
     }
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const question = useSelector(state => state.questions[id]);
-    const user = useSelector(state => state.users[question.author]);
+    const user = useSelector(state => question ? state.users[question.author]: undefined);
+
+    useEffect(() => {
+        if(!user) {
+            navigate("/notfound");
+        }
+      }, [user, navigate]);
+
     return (
         <div>
             {user && question &&

@@ -49,7 +49,7 @@ function App() {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<SignIn />} />
             </Routes>
           )}
         </> : <>
@@ -60,7 +60,7 @@ function App() {
               <Route path="/question/:id" element={<ViewPoll />} />
               <Route path="/add" element={<NewPoll />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/notfound" element={<NotFound />} />
             </Routes>
           )} </>}
       </div>

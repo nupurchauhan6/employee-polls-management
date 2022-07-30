@@ -12,14 +12,14 @@ const Dashboard = () => {
         if (questions[key].optionOne.votes.includes(authedUser.id) || questions[key].optionTwo.votes.includes(authedUser.id)) {
             return <Poll key={key} question={questions[key]} />
         }
-        return <></>
+        return <div key={key}></div>
     });
 
     const renderUnansweredPolls = Object.keys(questions).map((key) => {
         if (!questions[key].optionOne.votes.includes(authedUser.id) && !questions[key].optionTwo.votes.includes(authedUser.id)) {
             return <Poll key={key} question={questions[key]} />
         }
-        return <></>
+        return <div key={key}></div>
     });
 
     return (
